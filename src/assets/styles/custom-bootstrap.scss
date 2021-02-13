@@ -1,0 +1,28 @@
+// Define variable defaults
+// $body-bg: #000;
+// $body-color: #111;
+.bt-footer {
+    min-height: 39px;
+    padding-left: 27px;
+    padding-top: 10px;
+    color: #fff;
+    background-color: #9fa7b3;
+    font-size: 14px;
+    position: fixed;
+    left: 0px;
+    bottom: 0px;
+    width: 100%;
+    z-index: 1000
+}
+.bt-footer-item {
+    padding-right: 50px;
+    color: #fff;
+}
+
+a.bt-footer-item:hover {
+    color: #e1e8e2;
+}
+
+// Then import Bootstrap an BootstrapVue SCSS files (order is important)
+@import 'node_modules/bootstrap/scss/bootstrap.scss';
+@import 'node_modules/bootstrap-vue/src/index.scss';
