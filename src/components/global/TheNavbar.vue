@@ -1,13 +1,17 @@
 <template>
 <div>
   <b-navbar toggleable="sm" type="dark" variant="info">
-    <b-navbar-brand href="#">Vr33ni</b-navbar-brand>
+    <b-navbar-brand to="/">Vr33ni</b-navbar-brand>
   <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
  <b-collapse id="nav-collapse" is-nav>
       <b-navbar-nav>
-        <b-nav-item href="#">Link</b-nav-item>
-        <b-nav-item href="#" disabled>Disabled</b-nav-item>
+        <b-nav-item to="/about-me">About me</b-nav-item>
+         <b-nav-item to="/work">Work</b-nav-item>
+         <b-nav-item to="/training">Training</b-nav-item>
+         <b-nav-item to="/contact">Contact</b-nav-item>
+
+        <!-- <b-nav-item href="#" disabled>Disabled</b-nav-item> -->
       </b-navbar-nav>
 
       <!-- Right aligned nav items -->
@@ -25,9 +29,10 @@
         <b-nav-item-dropdown right>
           <!-- Using 'button-content' slot -->
           <template #button-content>
-            <em>User</em>
+            <em>Login</em>
           </template>
           <b-dropdown-item href="#">Profile</b-dropdown-item>
+           <b-dropdown-item to="/register">Register</b-dropdown-item>
           <b-dropdown-item href="#">Sign Out</b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>
