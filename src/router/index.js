@@ -7,6 +7,7 @@ import Training from "../components/Training.vue";
 import Work from "../components/Work.vue";
 import Contact from "../components/Contact.vue";
 import Register from "../components/auth/Register.vue";
+import store from '../store'
 
 
 Vue.use(Router);
@@ -40,7 +41,7 @@ const routes = [
   {
     path: "/work",
     name: "work",
-    component: Work
+    component: Work,
   },
   {
     path: "/contact",
@@ -53,5 +54,14 @@ const router = new Router({
   mode: "history",
   routes
 });
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresLogin) && store.state.user.authenticated == false) {
+      store.commit("setGlobalError", "You need to log in before you can perform this action.")
+      next("/Login")
+  } else {
+      next()
+  }
+})
 
 export default router;

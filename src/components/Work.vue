@@ -1,33 +1,64 @@
-
-
 <template>
   <div class="container">
     <h1>{{ msg }}</h1>
-    <div v-for='post in posts' :key='post.id'>
-  <h3>Post Title: </h3>  {{post.title}}
-      <h3>Post Body: </h3>{{post.body}}
+    <div v-if="isLoading" class="loading">
+      <loading
+        :active.sync="isLoading"
+        :can-cancel="true"
+        :is-full-page="fullPage"
+      />
     </div>
-    <h2>Essential Links</h2>
+   <div v-if="programmingSkills != null"
+         class="content"
+    >
+      <h2>IT Skills:</h2>
+        <div v-for="skill in programmingSkills" :key="skill.name">
+          <h3>{{ skill.name }}</h3>
+          {{ skill.proficiency }}
+        </div>
+      </div>
   </div>
 </template>
 
 <script>
+import Loading from "vue-loading-overlay";
+import "vue-loading-overlay/dist/vue-loading.css";
+
+
 export default {
-  name: 'work',
-  data () {
-    return {
-      msg: 'Work'
-    }
+  name: "work",
+  components: {
+    Loading,
   },
+  data() {
+    return {
+      isLoading: false,
+      fullPage: true,
+      msg: "Work",
+            messages: []
+    };
+  },
+
   computed: {
-    posts() {
-        console.log("posts", this.$store.state.posts)
-    return this.$store.state.posts
-    }
+    // isLoading() {
+    //   return this.$store.getters.isLoading;
+    // },
+    programmingSkills() {
+      if (this.$store.state.skills != null) {
+        return this.$store.state.skills.programming;
+      } else {
+        return null;
+      }
+    },
   },
   mounted() {
-    this.$store.dispatch("getPosts");
-  }
-}
+    this.isLoading = true;
+    this.$store.dispatch("getSkills").then(() => { this.isLoading = false });
+  },
+  methods: {
+    onCancel() {
+      console.log("User cancelled the loader.");
+    },
+  },
+};
 </script>
-

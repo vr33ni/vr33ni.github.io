@@ -27,7 +27,10 @@ export default {
   },
   mounted() {
     this.$store.dispatch("getPosts");
-  }
+    this.$store.dispatch("getItSkills");
+    // this.$store.dispatch("writeUserData");
+  },
+
 }
 </script>
 
