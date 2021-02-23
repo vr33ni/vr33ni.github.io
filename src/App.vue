@@ -19,13 +19,9 @@ import TheFooter from './components/global/TheFooter.vue'
 export default {
   name: 'App',
   components: {
-    // HelloWorld,
     TheNavbar,
     TheFooter
   },
-  // data() {
-  //   return process.env.VUE_APP_TITLE
-  // }
 }
 </script>
 

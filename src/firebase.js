@@ -1,5 +1,6 @@
 // import * as firebase from "firebase"; // initializing app error
 import { firebase } from '@firebase/app';
+import 'firebase/storage';
 import "firebase/database";
 
 var config = {
@@ -13,4 +14,4 @@ var config = {
     dbUrl: process.env.VUE_APP_DB_URL
   }
   firebase.initializeApp(config)
-  export default firebase.database();
+  export default firebase;

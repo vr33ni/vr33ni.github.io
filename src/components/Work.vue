@@ -8,14 +8,14 @@
         :is-full-page="fullPage"
       />
     </div>
-   <div v-if="programmingSkills != null"
-         class="content"
-    >
+    <div v-else>
+   <div v-if="programmingSkills != null">
       <h2>IT Skills:</h2>
         <div v-for="skill in programmingSkills" :key="skill.name">
           <h3>{{ skill.name }}</h3>
           {{ skill.proficiency }}
         </div>
+      </div>
       </div>
   </div>
 </template>
@@ -35,7 +35,7 @@ export default {
       isLoading: false,
       fullPage: true,
       msg: "Work",
-            messages: []
+    
     };
   },
 

@@ -2,7 +2,7 @@ import Vue from "vue";
 import Router from 'vue-router';
 import HelloWorld from "../components/HelloWorld.vue";
 import PrivacyPolicy from "../components/PrivacyPolicy.vue";
-import AboutMe from "../components/AboutMe.vue";
+import Resume from "../components/Resume.vue";
 import Training from "../components/Training.vue";
 import Work from "../components/Work.vue";
 import Contact from "../components/Contact.vue";
@@ -29,9 +29,9 @@ const routes = [
     component: Register
   },
   {
-    path: "/about-me",
-    name: "aboutme",
-    component: AboutMe
+    path: "/resume",
+    name: "resume",
+    component: Resume
   },
   {
     path: "/training",

@@ -2,20 +2,42 @@
   <div class="container">
     <h1>{{ msg }}</h1>
     <p>
-      For a guide and recipes on how to configure / customize this project,<br>
+      For a guide and recipes on how to configure / customize this project,<br />
       check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
     </p>
-   
+
     <h3>Ecosystem</h3>
     <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
+      <li>
+        <a href="https://router.vuejs.org" target="_blank" rel="noopener"
+          >vue-router</a
+        >
+      </li>
+      <li>
+        <a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a>
+      </li>
+      <li>
+        <a
+          href="https://github.com/vuejs/vue-devtools#vue-devtools"
+          target="_blank"
+          rel="noopener"
+          >vue-devtools</a
+        >
+      </li>
+      <li>
+        <a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener"
+          >vue-loader</a
+        >
+      </li>
+      <li>
+        <a
+          href="https://github.com/vuejs/awesome-vue"
+          target="_blank"
+          rel="noopener"
+          >awesome-vue</a
+        >
+      </li>
     </ul>
-    
 
     <!-- <instagram-embed
   :url="'https://www.instagram.com/p/CD3A_goH49p/?utm_source=ig_web_copy_link'"
@@ -23,7 +45,7 @@
 />
 -->
 
-  <!-- <vue-instagram token="267636651650572|jnYsJ2kknfAXD4XovYrQOjqKEZ8" :count="5" :tags="['hashtag1', 'hashtag2']" mediaType="image">
+    <!-- <vue-instagram token="267636651650572|jnYsJ2kknfAXD4XovYrQOjqKEZ8" :count="5" :tags="['hashtag1', 'hashtag2']" mediaType="image">
     <template slot="feeds" slot-scope="props">
       <li class="fancy-list"> "{{ props.feed }}" </li>
     </template>
@@ -32,45 +54,95 @@
     </template>
   </vue-instagram>  -->
 
-<div class="row justify-content-center align-items-center">
-  <b-card
-    title="Card Title"
-    img-src="https://picsum.photos/600/300/?image=25"
-    img-alt="Image"
-    img-top
-    tag="article"
-    style="max-width: 20rem;"
-    class="mb-2"
-  >
-    <b-card-text>
-      Some quick example text to build on the card title and make up the bulk of the card's content.
-    </b-card-text>
+    <div class="mb-5">
+      <div>
+        <b-card-group deck>
+          <div class="bg-image hover-zoom">´
+            <img :src="resumeImg" class="w-100">
+            <b-card no-body header="Resumé" :img-src="resumeImg"> </b-card>
+          </div>
+          <b-card no-body header="Work" :img-src="workImg"> </b-card>
 
-    <b-button href="#" variant="primary">Go somewhere</b-button>
-  </b-card>
-</div>
+          <b-card no-body header="Training" :img-src="trainingImg"> </b-card>
+        </b-card-group>
+      </div>
+      <div class="mt-3">
+        <b-card-group deck>
+          <b-card no-body header="Social media" :img-src="soMeImg"> </b-card>
 
+          <b-card no-body header="Contact" :img-src="contactImg"> </b-card>
 
-
+          <b-card no-body header="FAQ"> </b-card>
+        </b-card-group>
+      </div>
+    </div>
   </div>
-
 </template>
 
 <script>
 // import VueInstagram from 'vue-instagram'
 // import InstagramEmbed from 'vue-instagram-embed';
+import "../store";
+// <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-storage.js"
 
 export default {
-  name: 'HelloWorld',
+  name: "HelloWorld",
   //  components: {
   //   VueInstagram,
   //  InstagramEmbed
   // },
-  props: {
-    msg: String,
-    feed: String
-  }
-}
+  data() {
+    return {
+      isLoading: false,
+      msg: "Welcome",
+    };
+  },
+  computed: {
+    trainingImg() {
+      if (this.$store.state.homeImageTraining != null) {
+        return this.$store.state.homeImageTraining;
+      } else {
+        return null;
+      }
+    },
+    resumeImg() {
+      if (this.$store.state.homeImageResume != null) {
+        return this.$store.state.homeImageResume;
+      } else {
+        return null;
+      }
+    },
+    workImg() {
+      if (this.$store.state.homeImageWork != null) {
+        return this.$store.state.homeImageWork;
+      } else {
+        return null;
+      }
+    },
+    soMeImg() {
+      if (this.$store.state.homeImageSoMe != null) {
+        return this.$store.state.homeImageSoMe;
+      } else {
+        return null;
+      }
+    },
+
+    contactImg() {
+      if (this.$store.state.homeImageContact != null) {
+        return this.$store.state.homeImageContact;
+      } else {
+        return null;
+      }
+    },
+  },
+  mounted() {
+    this.isLoading = true;
+    this.$store.dispatch("getImagesFromStorage").then(() => {
+      this.isLoading = false;
+    });
+  },
+  methods: {},
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -88,5 +160,11 @@ li {
 }
 a {
   color: #42b983;
+}
+
+.card-img-top {
+  width: 100%;
+  height: 15px;
+  object-fit: cover;
 }
 </style>
