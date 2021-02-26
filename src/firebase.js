@@ -2,6 +2,7 @@
 import { firebase } from '@firebase/app';
 import 'firebase/storage';
 import "firebase/database";
+import "firebase/firebase-analytics";
 
 var config = {
     apiKey: process.env.VUE_APP_API_KEY,
@@ -14,4 +15,5 @@ var config = {
     dbUrl: process.env.VUE_APP_DB_URL
   }
   firebase.initializeApp(config)
+
   export default firebase;

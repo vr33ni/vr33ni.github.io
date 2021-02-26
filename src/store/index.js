@@ -15,7 +15,8 @@ const state = {
   homeImageResume:null,
   homeImageContact:null,
   homeImageSoMe:null,
-  homeImageWork:null,
+  homeImageProjects:null,
+  resumeProfileImg:null,
   posts: [],
   skills: null,
   user: null,
@@ -41,8 +42,11 @@ const getters = {
   homeImageSoMe(state) {
     return state.homeImageSoMe;
   },
-  homeImagework(state) {
-    return state.homeImageWork;
+  homeImageProjects(state) {
+    return state.homeImageProjects;
+  },
+  resumeProfileImg(state) {
+    return state.resumeProfileImg;
   },
   skills(state) {
     return state.skills;
@@ -62,6 +66,13 @@ const getters = {
 
 //to handle actions
 const actions = {
+  loadImage({ commit }) {
+    firebase.analytics().logEvent('test');
+    var imgRef = firebase.storage().ref().child('resume/profile_itu.jpg');
+    imgRef.getDownloadURL().then(url => {
+    commit("SET_RESUME_IMG_PROFILE", url);
+    });
+  },
   getImagesFromStorage({ commit }) {
       // var fileName = 'amagerstrandpark_webster.jpg';
     const storageRef = firebase
@@ -70,9 +81,9 @@ const actions = {
       // .child('images/')
       storageRef.listAll().then(res => {
         //for folders
-        res.prefixes.forEach(folder => {
-            console.log(folder);
-        });
+        // res.prefixes.forEach(folder => {
+        //     console.log(folder);
+        // });
         // for files NAME and URL
         var imgUrls = []
         res.items.forEach(item => {        
@@ -86,7 +97,7 @@ const actions = {
                   commit("SET_HOME_IMG_CONTACT", url)
                 }
                 if (item.name === "code_unsplash.jpg"){
-                  commit("SET_HOME_IMG_WORK", url)
+                  commit("SET_HOME_IMG_PROJECTS", url)
                 }
                 if (item.name === "resume_unsplash.jpg"){
                   commit("SET_HOME_IMG_RESUME", url)
@@ -94,6 +105,9 @@ const actions = {
                 if (item.name === "SoMe_unsplash.jpg"){
                   commit("SET_HOME_IMG_SOME", url)
                 }
+                // if (item.name === "profile_itu.jpg"){
+                //   commit("SET_RESUME_IMG_PROFILE", url)
+                // }
             });   
         });
         commit("SET_HOME_IMG_URLS", imgUrls);
@@ -186,8 +200,11 @@ const mutations = {
   SET_HOME_IMG_SOME(state, imgUrl) {
     state.homeImageSoMe = imgUrl;
   },
-  SET_HOME_IMG_WORK(state, imgUrl) {
-    state.homeImageWork = imgUrl;
+  SET_HOME_IMG_PROJECTS(state, imgUrl) {
+    state.homeImageProjects = imgUrl;
+  },
+  SET_RESUME_IMG_PROFILE(state, imgUrl) {
+    state.resumeProfileImg = imgUrl;
   },
   SET_POSTS(state, posts) {
     state.posts = posts;

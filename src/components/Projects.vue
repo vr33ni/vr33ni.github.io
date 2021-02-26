@@ -26,7 +26,7 @@ import "vue-loading-overlay/dist/vue-loading.css";
 
 
 export default {
-  name: "work",
+  name: "Projects",
   components: {
     Loading,
   },
@@ -34,7 +34,7 @@ export default {
     return {
       isLoading: false,
       fullPage: true,
-      msg: "Work",
+      msg: "Projects",
     
     };
   },

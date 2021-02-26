@@ -4,7 +4,7 @@ import HelloWorld from "../components/HelloWorld.vue";
 import PrivacyPolicy from "../components/PrivacyPolicy.vue";
 import Resume from "../components/Resume.vue";
 import Training from "../components/Training.vue";
-import Work from "../components/Work.vue";
+import Projects from "../components/Projects.vue";
 import Contact from "../components/Contact.vue";
 import Register from "../components/auth/Register.vue";
 import store from '../store'
@@ -33,15 +33,21 @@ const routes = [
     name: "resume",
     component: Resume
   },
+  // {
+  //   path: "/resume",
+  //   hash: "#edu",
+  //   name: "resume",
+  //   component: Resume
+  // },
   {
     path: "/training",
     name: "training",
     component: Training
   },
   {
-    path: "/work",
-    name: "work",
-    component: Work,
+    path: "/projects",
+    name: "projects",
+    component: Projects,
   },
   {
     path: "/contact",

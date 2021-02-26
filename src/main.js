@@ -1,3 +1,4 @@
+import 'mdb-vue-ui-kit/css/mdb.min.css'
 import Vue from 'vue'
 // import { firebase } from '@firebase/app'
 import App from './App.vue'
@@ -6,6 +7,7 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import store from './store'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+import i18n from './plugins/i18n';
 
 // Import Bootstrap an BootstrapVue CSS files (order is important)
 import 'bootstrap/dist/css/bootstrap.css'
@@ -22,5 +24,5 @@ Vue.config.productionTip = false
 new Vue({
   router,
   store,
-  render: h => h(App),
+  render: h => h(App),  i18n,
 }).$mount('#app')

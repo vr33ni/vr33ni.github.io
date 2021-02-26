@@ -12,9 +12,17 @@
           <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
         </b-nav-form> -->
           <b-navbar-nav>
-            <b-nav-item to="/resume">Resumé</b-nav-item>
-            <b-nav-item to="/work">Work</b-nav-item>
+            <!-- <b-nav-item to="/resume">Resumé</b-nav-item> -->
+             <div @mouseover="onOver" @mouseleave="onLeave">
+             <b-nav-item-dropdown text="Resumé" right ref="resumeDropdown">
+            <b-dropdown-item href="/resume">Professional experience</b-dropdown-item>
+            <b-dropdown-item href="/resume/#edu">Education</b-dropdown-item>   
+          </b-nav-item-dropdown>
+             </div>
+
+            <b-nav-item to="/projects">Projects</b-nav-item>
             <b-nav-item to="/training">Training</b-nav-item>
+            <b-nav-item to="#">Blog</b-nav-item>
             <b-nav-item to="/contact">Contact</b-nav-item>
           </b-navbar-nav>
 
@@ -29,7 +37,7 @@
             <b-dropdown-item href="#">Sign Out</b-dropdown-item>
           </b-nav-item-dropdown>
 
-          <b-nav-item-dropdown text="Lang" right>
+          <b-nav-item-dropdown text="EN" right>
             <b-dropdown-item href="#">EN</b-dropdown-item>
             <b-dropdown-item href="#">ES</b-dropdown-item>
           </b-nav-item-dropdown>
@@ -56,5 +64,13 @@ export default {
   //       { i18nTitle: 'navbar-header-first-tab', name: 'tab1' },
   //     ],
   //   }),
+  methods: {
+    onOver() {
+          this.$refs.resumeDropdown.visible = true;
+        },
+        onLeave() {
+          this.$refs.resumeDropdown.visible = false;
+        }
+  }
 };
 </script>
