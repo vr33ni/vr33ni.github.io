@@ -16,7 +16,8 @@
              <div @mouseover="onOver" @mouseleave="onLeave">
              <b-nav-item-dropdown text="Resumé" right ref="resumeDropdown">
             <b-dropdown-item href="/resume">Professional experience</b-dropdown-item>
-            <b-dropdown-item href="/resume/#edu">Education</b-dropdown-item>   
+            <b-dropdown-item href="/resume/#edu">Education</b-dropdown-item>
+             <b-dropdown-item href="/resume/#skills">Skills</b-dropdown-item>   
           </b-nav-item-dropdown>
              </div>
 

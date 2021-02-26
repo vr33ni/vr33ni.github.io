@@ -12,8 +12,7 @@
         <p class="description-item" v-html="itemTimeline.description" />
       </div>
          </div>
-         </div>
-      
+      </div>
     </div>
   </section>
 </template>
@@ -54,6 +53,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.center-item {
+   align-items: center !important; // for centering the month/date
+   display: flex !important; // for centering the month/date
+}
 .timeline-item {
   .item {
     border-left: 5px solid #ccd5db;
@@ -63,50 +66,53 @@ export default {
     align-items: center !important; // for centering the month/date
     display: flex !important; // for centering the month/date
   }
-  .bubble {
-  position: relative;
-  background: white;
-  border: 1px solid #9fa7b3;
-  max-width: 75%;
-  padding: 10px;
-  font-family: arial;
-  margin: 0 auto;
-  font-size: 14px;
-  border-radius: 6px;
-}
-.bubble:after,
-.bubble:before {
-  right: 100%;
-  top: 50%;
-  border: solid transparent;
-  content: " ";
-  height: 0;
-  width: 0;
-  position: absolute;
-  pointer-events: none;
-}
 
-.bubble:after {
-  border-color: rgba(255, 255, 204, 0);
-  border-right-color: white;
-  border-width: 15px;
-  margin-top: -15px;
-}
-.bubble:before {
-  border-color: rgba(255, 204, 0, 0);
-  border-right-color: #9fa7b3;
-  border-width: 16px;
-  margin-top: -16px;
-}
-.drop-shadow {
-  filter: drop-shadow(0px 0px 3px rgba(0, 0, 0, 0.5));
-}
+.bubble {
+    position: relative;
+    background: white;
+    border: 1px solid #9fa7b3;
+    max-width: 90%;
+    padding: 10px;
+    font-family: arial;
+    margin: 0 auto;
+    font-size: 14px;
+    border-radius: 6px;
+  }
+     .bubble:after,
+    .bubble:before {
+      right: 100%;
+      top: 50%;
+      border: solid transparent;
+      content: " ";
+      height: 0;
+      width: 0;
+      position: absolute;
+      pointer-events: none;
+    }
 
-.box-shadow {
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-}
+  .bubble:after {
+      border-color: rgba(255, 255, 204, 0);
+      border-right-color: white;
+      border-width: 15px;
+      margin-top: -15px;
+    }
+    .bubble:before {
+      border-color: rgba(255, 204, 0, 0);
+      border-right-color: #9fa7b3;
+      border-width: 16px;
+      margin-top: -16px;
+    }
 
- 
+  
+  
+  .drop-shadow {
+    filter: drop-shadow(0px 0px 3px rgba(0, 0, 0, 0.5));
+  }
+
+  .box-shadow {
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  }
+
   .date-item {
     margin: 0;
     text-transform: uppercase;
@@ -133,5 +139,4 @@ export default {
     // top: 26px; // remove this for aligning the dot in the middle
   }
 }
-
 </style>

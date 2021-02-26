@@ -40,9 +40,6 @@ export default {
   },
 
   computed: {
-    // isLoading() {
-    //   return this.$store.getters.isLoading;
-    // },
     programmingSkills() {
       if (this.$store.state.skills != null) {
         return this.$store.state.skills.programming;

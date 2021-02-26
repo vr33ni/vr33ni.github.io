@@ -21,12 +21,11 @@
           <b-icon variant="secondary" icon="github" aria-hidden="true"></b-icon>
       </a>
       <hr/>
-    <h5 class="card-title">Skills</h5>
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item">Cras justo odio</li>
-      <li class="list-group-item">Dapibus ac facilisis in</li>
-      <li class="list-group-item">Vestibulum at eros</li>
-    </ul>
+    <h5 class="card-title" id="skills">Skills</h5>
+     <div v-for='tag in skillTags' :key='tag' class='tag-__tag'>
+      {{ tag.name }}
+    </div>
+   
     </div>
   </div>
 </template>
@@ -37,18 +36,17 @@ import { BIcon } from 'bootstrap-vue'
 export default {
   name: "AboutMeCard",
    components: {BIcon},
-   mounted() {
-    // this.isLoading = true;
-    this.$store.dispatch("loadImage");
-  },
-  computed: {
-    profileImg() {
-      if (this.$store.state.resumeProfileImg != null) {
-        return this.$store.state.resumeProfileImg;
-      } else {
-        return null;
-      }
+    props: {
+    profileImg: {
+      type: String,
+      default: () => "",
     },
+     skillTags: {
+      type: Array,
+      default: () => ['Hello', 'World'],
+    },
+    },
+  computed: {
     mobile() {
       return this.$t("mobile")
     },
@@ -58,3 +56,18 @@ export default {
   }
 };
 </script>
+
+
+<style lang="scss" scoped>
+.tag-__tag {
+  height: 30px;
+  float: left;
+  margin-right: 10px;
+  background-color: #eee;
+  margin-top: 10px;
+  line-height: 30px;
+  padding: 0 5px;
+  border-radius: 5px;
+}
+
+</style>

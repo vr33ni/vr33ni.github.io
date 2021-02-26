@@ -12,10 +12,7 @@
         <p class="description-item" v-html="itemTimeline.description" />
       </div>
          </div>
-
-    
       </div>
-    
     </div>
   </section>
 </template>

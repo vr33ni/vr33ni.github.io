@@ -1,57 +1,68 @@
 <template>
   <div class="container">
-    <div class="row">
-      <div class="col-lg-9">
-        <section class="timeline">
-           <hr class="styleShadow">
-          <div v-if="hasProfessionalExperienceItems" class="wrapper-timeline">
-            <h3>Professional experience</h3>
-          <hr class="styleShadow">
+    <div v-if="isLoading" class="loading">
+      <loading
+        :active.sync="isLoading"
+        :can-cancel="true"
+        :is-full-page="fullPage"
+      />
+    </div>
+    <div v-else>
+      <div class="row">
+        <div class="col-lg-9">
+          <section class="timeline">
+            <hr class="styleShadow" />
+            <div v-if="hasProfessionalExperienceItems" class="wrapper-timeline">
+              <h3>Professional experience</h3>
+              <hr class="styleShadow" />
 
-            <div
-              v-for="(timelineContent, timelineIndex) in dataTimelineProfessionalExperience"
-              :key="timelineIndex"
-              :class="wrapperItemClass(timelineIndex)"
-            >
-              <div class="section-year">
-                <p v-if="hasYear(timelineContent)" class="year">
-                  {{ getYear(timelineContent) }}
-                </p>
+              <div
+                v-for="(timelineContent,
+                timelineIndex) in dataTimelineProfessionalExperience"
+                :key="timelineIndex"
+                :class="wrapperItemClass(timelineIndex)"
+              >
+                <div class="section-year">
+                  <p v-if="hasYear(timelineContent)" class="year">
+                    {{ getYear(timelineContent) }}
+                  </p>
+                </div>
+                <ProfessionalExperienceItem
+                  :item-timeline="timelineContent"
+                  :date-locale="dateLocale"
+                  :color-dots="colorDots"
+                />
               </div>
-              <ProfessionalExperienceItem
-                :item-timeline="timelineContent"
-                :date-locale="dateLocale"
-                :color-dots="colorDots"
-              />
             </div>
-          </div>
-          <hr class="styleShadow">
-          <div v-if="hasProfessionalExperienceItems" class="wrapper-timeline">
+            <hr class="styleShadow" />
+            <div v-if="hasProfessionalExperienceItems" class="wrapper-timeline">
               <h3 id="edu">Education</h3>
-          <hr class="styleShadow">
-            <div
-              v-for="(timelineContent, timelineIndex) in dataTimelineProfessionalExperience"
-              :key="timelineIndex"
-              :class="wrapperItemClass(timelineIndex)"
-            >
-              <div class="section-year">
-                <p v-if="hasYear(timelineContent)" class="year">
-                  {{ getYear(timelineContent) }}
-                </p>
+              <hr class="styleShadow" />
+              <div
+                v-for="(timelineContent,
+                timelineIndex) in dataTimelineProfessionalExperience"
+                :key="timelineIndex"
+                :class="wrapperItemClass(timelineIndex)"
+              >
+                <div class="section-year">
+                  <p v-if="hasYear(timelineContent)" class="year">
+                    {{ getYear(timelineContent) }}
+                  </p>
+                </div>
+                <EducationItem
+                  :item-timeline="timelineContent"
+                  :date-locale="dateLocale"
+                  :color-dots="colorDots"
+                />
               </div>
-              <EducationItem 
-                :item-timeline="timelineContent"
-                :date-locale="dateLocale"
-                :color-dots="colorDots"
-              />
             </div>
-          </div>
-          <p v-else>{{ messageWhenNoItems }}</p>
-        </section>
-      </div>
+            <p v-else>{{ messageWhenNoItems }}</p>
+          </section>
+        </div>
 
-      <div class="col-lg-3 mt-3">
-        <AboutMeCard/>
+        <div class="col-lg-3 mt-3">
+          <AboutMeCard :skill-tags="skillTags" :profileImg="profileImg" />
+        </div>
       </div>
     </div>
   </div>
@@ -62,10 +73,13 @@ import ProfessionalExperienceItem from "./resume/ProfessionalExperienceItem.vue"
 import EducationItem from "./resume/EducationItem.vue";
 import AboutMeCard from "./resume/AboutMeCard.vue";
 import "../store";
+import Loading from "vue-loading-overlay";
+import "vue-loading-overlay/dist/vue-loading.css";
 
 export default {
   name: "resume",
   components: {
+    Loading,
     ProfessionalExperienceItem,
     EducationItem,
     AboutMeCard,
@@ -73,6 +87,8 @@ export default {
 
   data() {
     return {
+      isLoading: false,
+      fullPage: true,
       msg: "Resumé",
       uniqueYear: "true",
       // show-day-and-month="true"
@@ -102,7 +118,32 @@ export default {
     };
   },
 
+  mounted() {
+    this.isLoading = true;
+    this.$store.dispatch("loadImage").then(() => {
+      this.isLoading = false;
+    });
+    this.isLoading = true;
+    this.$store.dispatch("getSkills").then(() => {
+      this.isLoading = false;
+    });
+  },
+
   computed: {
+    profileImg() {
+      if (this.$store.state.resumeProfileImg != null) {
+        return this.$store.state.resumeProfileImg;
+      } else {
+        return null;
+      }
+    },
+    skillTags() {
+      if (this.$store.state.skills != null) {
+        return this.$store.state.skills.programming;
+      } else {
+        return null;
+      }
+    },
     hasProfessionalExperienceItems() {
       return !!this.timelineItems.length;
     },
@@ -129,9 +170,15 @@ export default {
       };
     },
     checkYearTimelineItem(timelineIndex) {
-      const previousItem = this.dataTimelineProfessionalExperience[timelineIndex - 1];
-      const nextItem = this.dataTimelineProfessionalExperience[timelineIndex + 1];
-      const currentItem = this.dataTimelineProfessionalExperience[timelineIndex];
+      const previousItem = this.dataTimelineProfessionalExperience[
+        timelineIndex - 1
+      ];
+      const nextItem = this.dataTimelineProfessionalExperience[
+        timelineIndex + 1
+      ];
+      const currentItem = this.dataTimelineProfessionalExperience[
+        timelineIndex
+      ];
       if (!previousItem || !nextItem) {
         return false;
       }
@@ -215,14 +262,16 @@ export default {
   }
 }
 hr.styleShadow {
-	height: 5px;
-	border: 0;
-	box-shadow: 0px 0px 20px rgba(0,0,0,.5)
+  height: 5px;
+  border: 0;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
 }
 
-.box-shadow {box-shadow: 0px 0px 10px rgba(0,0,0,.5)}
+.box-shadow {
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
 
 .drop-shadow {
-    filter: drop-shadow(0px 0px 10px rgba(0,0,0,.5));
-    }
+  filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.5));
+}
 </style>
